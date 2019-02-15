@@ -6,43 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Server Address: "
-        android:id="@+id/txt_server_address_label"
-        tools:ignore="HardcodedText" />
-
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="192.168.1.2"
-        android:id="@+id/txt_server_address"
-        app:layout_constraintTop_toBottomOf="@id/txt_server_address_label"
-        tools:ignore="HardcodedText,LabelFor,TextFields" />
+        android:orientation="horizontal"
+        android:id="@+id/layout_server_address">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Server Address: "
+            android:id="@+id/txt_server_address_label"
+            tools:ignore="HardcodedText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Server Port: "
-        android:id="@+id/txt_server_port_label"
-        app:layout_constraintTop_toBottomOf="@id/txt_server_address"
-        tools:ignore="HardcodedText" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="https://taliserver.herokuapp.com"
+            android:id="@+id/txt_server_address"
+            tools:ignore="HardcodedText,LabelFor,TextFields" />
+    </LinearLayout>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="3484"
-        android:id="@+id/txt_server_port"
-        app:layout_constraintTop_toBottomOf="@id/txt_server_port_label"
-        tools:ignore="HardcodedText" />
+        android:orientation="horizontal"
+        android:id="@+id/layout_server_port"
+        app:layout_constraintTop_toBottomOf="@id/layout_server_address">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Server Port: "
+            android:id="@+id/txt_server_port_label"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="80"
+            android:id="@+id/txt_server_port"
+            tools:ignore="HardcodedText"
+            />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Status: Disconnect"
         android:id="@+id/txt_status"
-        app:layout_constraintTop_toBottomOf="@id/txt_server_port"
+        app:layout_constraintTop_toBottomOf="@id/layout_server_port"
         tools:ignore="HardcodedText" />
 
     <Button
@@ -51,7 +62,8 @@
         android:text="Connect to server"
         android:id="@+id/btn_connect_to_server"
         app:layout_constraintTop_toBottomOf="@id/txt_status"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        android:textAllCaps="false"/>
 
     <Button
         android:layout_width="wrap_content"
