@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         mSocket.close();
                     }
                     try {
-                        if (txtServerAddress.getText().toString().toCharArray()[0] == 'h') {
+                        if (txtServerAddress.getText().toString().toCharArray()[txtServerAddress.getText().toString().length()-1] == 'm') {
                             mSocket = IO.socket(txtServerAddress.getText().toString());
                         } else {
                             mSocket = IO.socket(txtServerAddress.getText().toString() + ":" + txtServerPort.getText().toString());
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnGo.setOnTouchListener(new View.OnTouchListener() {
+        btnLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (mSocket.connected()) {

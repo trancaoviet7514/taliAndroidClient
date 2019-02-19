@@ -42,7 +42,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="80"
+            android:text="3484"
             android:id="@+id/txt_server_port"
             tools:ignore="HardcodedText"
             />
