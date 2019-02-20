@@ -4,96 +4,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/layout_server_address">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Server Address: "
-            android:id="@+id/txt_server_address_label"
-            tools:ignore="HardcodedText" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="https://taliserver.herokuapp.com"
-            android:id="@+id/txt_server_address"
-            tools:ignore="HardcodedText,LabelFor,TextFields" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/layout_server_port"
-        app:layout_constraintTop_toBottomOf="@id/layout_server_address">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Server Port: "
-            android:id="@+id/txt_server_port_label"
-            tools:ignore="HardcodedText" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="3484"
-            android:id="@+id/txt_server_port"
-            tools:ignore="HardcodedText"
-            />
-    </LinearLayout>
+    tools:context=".MainActivity"
+    android:padding="10dp">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server Address: "
+        android:id="@+id/txt_server_address_label"
+        tools:ignore="HardcodedText"
+        app:layout_constraintTop_toTopOf="@id/txt_server_address"
+        app:layout_constraintBottom_toBottomOf="@id/txt_server_address"
+        android:textSize="18sp"/>
+
+    <AutoCompleteTextView
+        android:imeOptions="flagNoExtractUi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="https://taliserver.herokuapp.com"
+        android:id="@+id/txt_server_address"
+        tools:ignore="HardcodedText,LabelFor,TextFields"
+        app:layout_constraintStart_toEndOf="@id/txt_server_address_label"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server Port: "
+        android:id="@+id/txt_server_port_label"
+        tools:ignore="HardcodedText"
+        app:layout_constraintTop_toBottomOf="@id/txt_server_address_label"
+        app:layout_constraintEnd_toStartOf="@id/txt_server_port"
+        app:layout_constraintBottom_toBottomOf="@id/txt_server_port"
+        app:layout_constraintTop_toTopOf="@id/txt_server_port"
+        android:textSize="18sp"/>
+
+    <AutoCompleteTextView
+        android:imeOptions="flagNoExtractUi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="80"
+        android:id="@+id/txt_server_port"
+        tools:ignore="HardcodedText,LabelFor"
+        app:layout_constraintTop_toBottomOf="@id/txt_server_address"
+        app:layout_constraintStart_toStartOf="@id/txt_server_address"/>
+
+    <TextView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Status: Disconnect"
         android:id="@+id/txt_status"
-        app:layout_constraintTop_toBottomOf="@id/layout_server_port"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintBottom_toBottomOf="@id/txt_server_address"
+        app:layout_constraintTop_toTopOf="@id/txt_server_address"
+        app:layout_constraintStart_toStartOf="@id/btn_connect_to_server"
+        tools:ignore="HardcodedText"
+        android:textSize="18sp"/>
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:id="@+id/img_status_icon"
+        android:src="@drawable/ic_disconnected"
+        app:layout_constraintStart_toEndOf="@id/txt_status"
+        app:layout_constraintTop_toTopOf="@id/txt_status"
+        android:layout_marginStart="10dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Connect to server"
         android:id="@+id/btn_connect_to_server"
-        app:layout_constraintTop_toBottomOf="@id/txt_status"
+        app:layout_constraintBottom_toBottomOf="@id/txt_server_port"
+        app:layout_constraintTop_toTopOf="@id/txt_server_port"
+        app:layout_constraintStart_toEndOf="@id/txt_server_address"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="HardcodedText"
         android:textAllCaps="false"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:id="@+id/btn_go_background"
+        android:background="@drawable/background_round_blue"
+        app:layout_constraintBottom_toTopOf="@id/btn_back"
+        android:alpha="0"/>
+
+    <Button
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:id="@+id/btn_go"
         app:layout_constraintBottom_toTopOf="@id/btn_back"
-        android:text="Go"
-        tools:ignore="HardcodedText" />
+        android:background="@drawable/ic_go"
+        tools:ignore="HardcodedText"
+        />
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:id="@+id/btn_back_background"
+        android:background="@drawable/background_round_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:alpha="0"/>
+
+    <Button
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:id="@+id/btn_back"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="Back"
+        android:background="@drawable/ic_back"
         tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:id="@+id/img_speed_clock"
+        android:src="@drawable/speed_clock"
+        app:layout_constraintStart_toEndOf="@id/btn_go"
+        app:layout_constraintEnd_toStartOf="@id/btn_left"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:id="@+id/img_speed_needle"
+        android:src="@drawable/needle"
+        app:layout_constraintStart_toEndOf="@id/btn_go"
+        app:layout_constraintEnd_toStartOf="@id/btn_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:rotation="-133"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:id="@+id/btn_left_background"
+        android:background="@drawable/background_round_blue"
+        app:layout_constraintEnd_toStartOf="@id/btn_right"
+        app:layout_constraintTop_toTopOf="@id/btn_go"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:alpha="0"/>
+
+    <Button
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:id="@+id/btn_left"
         app:layout_constraintEnd_toStartOf="@id/btn_right"
-        android:text="Left"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="@id/btn_go"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:background="@drawable/ic_left"
+        tools:ignore="HardcodedText"/>
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:id="@+id/btn_right_background"
+        android:background="@drawable/background_round_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_go"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:alpha="0"/>
+    <Button
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:id="@+id/btn_right"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Right"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toTopOf="@id/btn_go"
+        app:layout_constraintBottom_toBottomOf="@id/btn_back"
+        android:background="@drawable/ic_right"
+        tools:ignore="HardcodedText"/>
 
 </android.support.constraint.ConstraintLayout>
