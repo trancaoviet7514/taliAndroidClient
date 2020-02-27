@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +25,8 @@ import com.github.nkzawa.socketio.client.Socket;
 import java.net.URISyntaxException;
 
 public class MainActivity extends Activity {
+    private static final String STR_CONNECT_TO_SERVER = "Connect to server";
+    private static final String STR_DISCONNECT_TO_SERVER = "Disconnect to server";
 
     Socket mSocket;
     Button btnConnect, btnGo, btnBack, btnLeft, btnRight, btnRightBackGround, btnLeftBackGround, btnGoBackGround, btnBackBackGround;
@@ -63,11 +64,11 @@ public class MainActivity extends Activity {
         txtStatus = findViewById(R.id.txt_status);
         txtServerAddressLabel = findViewById(R.id.txt_server_address_label);
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>
                 (this, android.R.layout.select_dialog_item, mServersAddress);
         txtServerAddress.setThreshold(0); //will start working from first character
         txtServerAddress.setAdapter(adapter1);
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>
                 (this, android.R.layout.select_dialog_item, mServersPort);
         txtServerPort.setThreshold(0); //will start working from first character
         txtServerPort.setAdapter(adapter2);
@@ -81,7 +82,8 @@ public class MainActivity extends Activity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
-                if (btnConnect.getText().equals("Connect to server")){
+                btnConnect.setEnabled(false);
+                if (mSocket == null || !mSocket.connected()) {
                     if (mSocket != null) {
                         mSocket.disconnect();
                         mSocket.close();
@@ -113,9 +115,8 @@ public class MainActivity extends Activity {
                         mSocket.connect();
                     }
                 } else {
-                    if(mSocket!= null && mSocket.connected()){
+                    if(mSocket != null && mSocket.connected()){
                         mSocket.disconnect();
-                        btnConnect.setText("Connect to server");
                     }
                 }
 
@@ -253,6 +254,9 @@ public class MainActivity extends Activity {
                     public void run() {
                         txtStatus.setText("Status: Disconnect");
                         imgStatusIcon.setImageResource(R.drawable.ic_disconnected);
+                        imgStatusIcon.clearAnimation();
+                        btnConnect.setEnabled(true);
+                        btnConnect.setText(STR_CONNECT_TO_SERVER);
                     }
                 });
                 mSocket.off();
@@ -267,27 +271,14 @@ public class MainActivity extends Activity {
                     @Override
                     public void run() {
                         txtStatus.setText("Status: Connected");
-                        btnConnect.setText("Disconnect to server");
+                        btnConnect.setEnabled(true);
+                        btnConnect.setText(STR_DISCONNECT_TO_SERVER);
                         imgStatusIcon.setImageResource(R.drawable.ic_connected);
                         imgStatusIcon.clearAnimation();
                     }
                 });
             }
         });
-
-//        mSocket.on("welcome", new Emitter.Listener() {
-//            @Override
-//            public void call(final Object... args) {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        JSONObject data = (JSONObject) args[0];
-//                        String message = data.optString("data");
-//                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//            }
-//        });
 
         mSocket.on(Socket.EVENT_CONNECT_ERROR, new Emitter.Listener() {
             @Override
@@ -296,10 +287,13 @@ public class MainActivity extends Activity {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
+                        mSocket.close();
                         Toast.makeText(MainActivity.this, "timeout", Toast.LENGTH_SHORT).show();
                         imgStatusIcon.setImageResource(R.drawable.ic_disconnected);
                         imgStatusIcon.clearAnimation();
                         txtStatus.setText("Status: Connect error");
+                        btnConnect.setEnabled(true);
+                        btnConnect.setText(STR_CONNECT_TO_SERVER);
                     }
                 });
             }
